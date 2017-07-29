@@ -18,11 +18,8 @@
   "dependencies": {
     "async": "^2.5.0",
     "chrome-remote-interface": "^0.24.2",
-    "core-js": "^2.4.1",
-    "hapi": "13.2.2",
-    "inert": "3.2.0",
-    "lodash": "^4.13.1",
-    "mkdirp": "0.5.1",
+    "express": "^4.15.3",
+    "mkdirp-promise": "^5.0.1",
     "portfinder": "^1.0.13",
     "wait-port": "^0.1.4"
   },

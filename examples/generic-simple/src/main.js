@@ -50,3 +50,5 @@ todosContainer.addEventListener('click', function (event) {
     render()
   }
 })
+
+document.body.innerHTML += `<p>Injected: ${JSON.stringify(window['__PRERENDER_INJECTED'])}</p>`

@@ -1,52 +1,72 @@
-var FS = require('fs')
-var Path = require('path')
-var mkdirp = require('mkdirp')
-var compileToHTML = require('./lib/compile-to-html')
+const fs = require('fs')
+const path = require('path')
+const mkdirp = require('mkdirp-promise')
+// const compileToHTML = require('./lib/compile-to-html')
+const Prerenderer = require('./lib/prerenderer')
 
-function SimpleHtmlPrecompiler (staticDir, paths, options) {
-  this.staticDir = staticDir
-  this.paths = paths
-  this.options = options || {}
+function SimpleHtmlPrecompiler (options) {
+  this._options = options || {}
+
+  if (options.inject && !options.injectName) options.injectName = '__PRERENDER_INJECTED'
 }
 
 SimpleHtmlPrecompiler.prototype.apply = function (compiler) {
-  var self = this
-  compiler.plugin('after-emit', function (compilation, done) {
-    Promise.all(
-      self.paths.map(function (outputPath) {
-        return new Promise(function (resolve, reject) {
-          compileToHTML(self.staticDir, outputPath, self.options, function (prerenderedHTML) {
-            if (self.options.postProcessHtml) {
-              prerenderedHTML = self.options.postProcessHtml({
-                html: prerenderedHTML,
-                route: outputPath
-              })
-            }
-            var folder = Path.join(self.options.outputDir || self.staticDir, outputPath)
-            mkdirp(folder, function (error) {
-              if (error) {
-                return reject('Folder could not be created: ' + folder + '\n' + error)
-              }
-              var file = Path.join(folder, 'index.html')
-              FS.writeFile(
-                file,
-                prerenderedHTML,
-                function (error) {
-                  if (error) {
-                    return reject('Could not write file: ' + file + '\n' + error)
-                  }
-                  resolve()
-                }
-              )
+  compiler.plugin('after-emit', (compilation, done) => {
+    // For backwards-compatibility with prerender-spa-plugin
+    if (!this.routes && this.paths) this.routes = this.paths
+
+    const PrerendererInstance = new Prerenderer(this._options)
+
+    PrerendererInstance.initialize()
+    .then(() => {
+      return PrerendererInstance.renderRoutes(this._options.routes || [], this._options)
+    })
+    .then(renderedRoutes => {
+      const {route, html} = renderedRoutes
+
+      if (this._options.postProcessHtml) {
+        renderedRoutes.html = this._options.postProcessHtml({
+          html,
+          route
+        })
+      }
+
+      return renderedRoutes
+    })
+    .then(processedRoutes => {
+      const promises = Promise.all(processedRoutes.map(processedRoute => {
+        const outputDir = path.join(this._options.outputDir || this._options.staticDir, processedRoute.route)
+        const outputFile = path.join(outputDir, 'index.html')
+
+        return mkdirp(outputDir)
+        .then(() => {
+          return new Promise((resolve, reject) => {
+            fs.writeFile(outputFile, processedRoute.html.trim(), err => {
+              if (err) reject(`[PrerenderChromePlugin] Unable to write rendered route to file "${outputFile}" \n ${err}`)
             })
+
+            resolve()
           })
         })
-      })
-    )
-    .then(function () { done() })
-    .catch(function (error) {
-      // setTimeout prevents the Promise from swallowing the throw
-      setTimeout(function () { throw error })
+        .catch(err => {
+          if (typeof err === 'string') {
+            err = `[PrerenderChromePlugin] Unable to create directory ${outputDir} for route ${processedRoute.route}. \n ${err}`
+          }
+
+          setTimeout(function () { throw err })
+        })
+      }))
+
+      return promises
+    })
+    .then(r => {
+      PrerendererInstance.destroy()
+      done()
+    })
+    .catch(err => {
+      PrerendererInstance.destroy()
+      console.error('[PrerenderChromePlugin] Unable to prerender all routes!')
+      setTimeout(function () { throw err })
     })
   })
 }

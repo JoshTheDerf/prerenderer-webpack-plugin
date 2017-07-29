@@ -13,9 +13,14 @@ module.exports = {
       from: 'src/static',
       to: '.'
     }]),
-    new PrerenderSpaPlugin(
-      Path.join(__dirname, 'dist'),
-      [ '/' ]
-    )
+    new PrerenderSpaPlugin({
+      staticDir: Path.join(__dirname, 'dist'),
+      outputDir: Path.join(__dirname, 'prerendered'),
+      routes: [ '/', '/test', '/deep/long/route' ],
+      // injectName: '__PRERENDER_INJECTED',
+      inject: {
+        injectedProperty: 'Example'
+      }
+    })
   ]
 }
