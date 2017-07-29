@@ -1,26 +1,40 @@
 {
-  "name": "prerender-spa-plugin",
-  "version": "2.0.1",
-  "description": "Prerenders static HTML in a single-page application.",
+  "name": "prerender-chrome-plugin",
+  "version": "0.1.0",
+  "description": "Prerender SPAs and other websites with webpack over Chrome's Remote Debugging Protocol. Fork of prerender-spa-plugin.",
   "main": "index.js",
-  "author": "Chris Fritz",
+  "authors": [
+    "Chris Fritz",
+    "Joshua Bemenderfer"
+  ],
+  "keywords": [
+    "prerender",
+    "spa",
+    "ssr",
+    "serverside-rendering",
+    "chrome-rdp"
+  ],
   "license": "MIT",
   "dependencies": {
+    "async": "^2.5.0",
+    "chrome-remote-interface": "^0.24.2",
     "core-js": "^2.4.1",
     "hapi": "13.2.2",
     "inert": "3.2.0",
     "lodash": "^4.13.1",
     "mkdirp": "0.5.1",
-    "phantomjs-prebuilt": "2.1.8",
-    "portfinder": "1.0.3"
+    "portfinder": "^1.0.13",
+    "wait-port": "^0.1.4"
   },
   "devDependencies": {
     "eslint": "^2.5.1",
     "eslint-config-standard": "^5.1.0",
     "eslint-plugin-promise": "^1.1.0",
-    "eslint-plugin-standard": "^1.3.2"
+    "eslint-plugin-standard": "^1.3.2",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-env": "^1.6.0"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=8.0.0"
   }
 }

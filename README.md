@@ -1,4 +1,4 @@
-**MAINTAINERS WANTED**: Ahh, so much open source! With my current workload, I simply don't have time to give this project the attention it deserves. If you're interested in becoming a maintainer, please [tweet me](https://twitter.com/chrisvfritz) to let me know!
+## TODO: Rewrite & Re-release
 
 <p align="center"><img width="150" src="https://github.com/chrisvfritz/prerender-spa-plugin/blob/master/art/logo.png?raw=true"></p>
 
@@ -95,7 +95,7 @@ module.exports = {
 
         // Instead of loudly failing on JS errors (the default), ignore them.
         ignoreJSErrors: true,
-        
+
         // Path of index file. By default it's index.html in static root.
         indexPath: path.resolve('/dist/path/to/index.html'),
 
@@ -120,13 +120,13 @@ module.exports = {
         phantomPageSettings: {
           loadImages: true
         },
-        
+
         // http://phantomjs.org/api/webpage/property/viewport-size.html
         phantomPageViewportSize: {
           width: 1280,
           height: 800
         },
-        
+
         // Manually transform the HTML for each page after prerendering,
         // for example to set the page title and metadata in edge cases
         // where you cannot handle this via your routing solution.
