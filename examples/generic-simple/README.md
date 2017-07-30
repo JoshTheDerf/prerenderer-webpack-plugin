@@ -1,5 +1,7 @@
 # Generic & Simple Example
 
+From https://github.com/chrisvfritz/prerender-spa-plugin/tree/master/examples/generic-simple
+
 The simplest possible example of a prerendered static site, using JavaScript with no external libraries.
 
 ## Usage
