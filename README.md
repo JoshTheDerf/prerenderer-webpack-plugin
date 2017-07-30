@@ -10,13 +10,9 @@
 <div align="center">
 
 [![npm version](https://img.shields.io/npm/v/prerenderer-webpack-plugin.svg)]()
-
 [![npm downloads](https://img.shields.io/npm/dt/prerenderer-webpack-plugin.svg)]()
-
 [![Dependency Status](https://img.shields.io/david/tribex/prerenderer-webpack-plugin.svg)](https://david-dm.org/tribex/prerenderer-webpack-plugin)
-
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://standardjs.com/)
-
 [![license](https://img.shields.io/github/license/tribex/prerenderer-webpack-plugin.svg)]()
 
 </div>
@@ -24,7 +20,9 @@
 ---
 
 <div align="center">
+
 [![NPM](https://nodei.co/npm/prerenderer-webpack-plugin.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/prerenderer-webpack-plugin/)
+
 </div>
 
 ## About prerenderer-webpack-plugin
