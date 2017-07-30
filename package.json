@@ -34,7 +34,8 @@
     "email": "tribex10@gmail.com"
   },
   "dependencies": {
-    "mkdirp-promise": "^5.0.1"
+    "mkdirp-promise": "^5.0.1",
+    "prerenderer": "^0.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
