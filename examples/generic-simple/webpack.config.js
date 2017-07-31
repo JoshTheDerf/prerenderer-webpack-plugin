@@ -1,4 +1,4 @@
-const Path = require('path')
+const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const PrerendererWebpackPlugin = require('../../index.js')
 const ChromeRenderer = PrerendererWebpackPlugin.ChromeRenderer
@@ -6,7 +6,7 @@ const ChromeRenderer = PrerendererWebpackPlugin.ChromeRenderer
 module.exports = {
   entry: [ './src/main.js' ],
   output: {
-    path: './dist',
+    path: path.join(__dirname, 'dist'),
     filename: '[name].js'
   },
   plugins: [
@@ -15,8 +15,8 @@ module.exports = {
       to: '.'
     }]),
     new PrerendererWebpackPlugin({
-      staticDir: Path.join(__dirname, 'dist'),
-      outputDir: Path.join(__dirname, 'prerendered'),
+      staticDir: path.join(__dirname, 'dist'),
+      outputDir: path.join(__dirname, 'prerendered'),
       routes: [ '/', '/about', '/some/deep/nested/route' ],
 
       renderer: new ChromeRenderer({
