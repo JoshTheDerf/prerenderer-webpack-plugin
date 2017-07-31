@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "mkdirp-promise": "^5.0.1",
-    "prerenderer": "^0.2.0"
+    "prerenderer": "^0.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

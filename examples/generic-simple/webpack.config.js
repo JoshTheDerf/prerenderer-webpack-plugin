@@ -1,7 +1,7 @@
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const PrerendererWebpackPlugin = require('../../index.js')
-const ChromeRenderer = PrerendererWebpackPlugin.ChromeRenderer
+const Renderer = PrerendererWebpackPlugin.JSDOMRenderer
 
 module.exports = {
   entry: [ './src/main.js' ],
@@ -19,7 +19,7 @@ module.exports = {
       outputDir: path.join(__dirname, 'prerendered'),
       routes: [ '/', '/about', '/some/deep/nested/route' ],
 
-      renderer: new ChromeRenderer({
+      renderer: new Renderer({
         inject: {
           foo: 'bar'
         }

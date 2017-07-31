@@ -37,7 +37,7 @@ Plugins for other task runners and build systems are planned.
 ```js
 const path = require('path')
 const PrerendererWebpackPlugin = require('prerenderer-webpack-plugin')
-const ChromeRenderer = PrerendererWebpackPlugin.ChromeRenderer
+const JSDOMRenderer = PrerendererWebpackPlugin.JSDOMRenderer // or ChromeRenderer
 
 module.exports = {
   plugins: [
@@ -49,11 +49,7 @@ module.exports = {
       routes: [ '/', '/about', '/some/deep/nested/route' ],
 
       // Optional - This is the default.
-      renderer: new ChromeRenderer({
-        // If this is omitted, ChromeRenderer will *attempt* to find a valid installed version based on your platform. No promises.
-        command: 'start chrome' // Windows
-        // More optional renderer arguments.
-      })
+      renderer: new JSDOMRenderer() // or new ChromeRenderer({ command: 'chrome-start-command' })
     })
   ]
 }
@@ -75,7 +71,8 @@ In the interest of transparency, there are some use-cases where prerendering mig
 - **Dynamic Content** - If your render routes that have content that's specific to the user viewing it or other dynamic sources, you should make sure you have placeholder components that can display until the dynamic content loads on the client-side. Otherwise it might be a tad weird.
 
 ## Available Renderers
-- Chromium / Google Chrome Headless over RDP (builtin) - `PrerendererWebpackPlugin.ChromeRenderer`
+- `prerenderer.JSDOMRenderer` (builtin, default) - Uses [jsdom](https://npmjs.com/package/jsdom) Extremely fast, but unreliable and cannot handle advanced usages. May not work with all front-end frameworks and apps.
+- `prerenderer.ChromeRenderer` (builtin) - Uses Google Chrome in headless mode over RDP. Not blazing fast, but produces excellent results. *Requires **Chrome 54+** on macOS and Linux, and **Chrome 60+** on Windows*
 
 ## Documentation
 
@@ -87,7 +84,7 @@ In the interest of transparency, there are some use-cases where prerendering mig
 | outputDir | String                      | No        | `staticDir`            | The path to output the rendered app to.                                                                                                          |
 | routes    | Array:String               | Yes       | `[]`                   | Routes to prerender.                                                                                                                             |
 | server    | Object                      | No        | None                   | App server configuration options (See below)                                                                                                     |
-| renderer  | Renderer Instance or Object | No        | `new ChromeRenderer()` | The renderer you'd like to use to prerender the app. It's recommended that you specify this, but if not it will attempt to start ChromeRenderer. |
+| renderer  | Renderer Instance or Configuration Object | No        | `new JSDOMRenderer()` | The renderer you'd like to use to prerender the app. It's recommended that you specify this, but if not it will default to JSDOMRenderer. |
 
 ### Server Options
 
@@ -95,6 +92,17 @@ In the interest of transparency, there are some use-cases where prerendering mig
 |--------|---------|-----------|----------------------------|----------------------------------------|
 | port   | Integer | No        | First free port after 8000 | The port for the app server to run on. |
 
+---
+
+### JSDOMRenderer Options
+
+| Option                   | Type                   | Required?        | Default                    | Description                                                                                                                                                                                         |
+|--------------------------|------------------------|------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| inject                   | Object                 | No               | None                       | An object to inject into the global scope of the rendered page before it finishes loading. Must be `JSON.stringifiy`-able. The property injected to is `window['__PRERENDER_INJECTED']` by default. |
+| injectProperty           | String                 | No               | `'__PRERENDER_INJECTED'`   | The property to mount `inject` to during rendering.                                                                                                                                                 |
+| renderAfterDocumentEvent | String                 | No               | None                       | Wait to render until the specified event is fired on the document. (You can fire an event like so: `document.dispatchEvent(new Event('custom-render-trigger'))`                                     |
+| renderAfterElementExists | String (Selector)      | No               | None                       | Wait to render until the specified element is detected using `document.querySelector`                                                                                                               |
+| renderAfterTime          | Integer (Milliseconds) | No               | None                       | Wait to render until a certain amount of time has passed.                                                                                                                                           |
 ---
 
 ### ChromeRenderer Options

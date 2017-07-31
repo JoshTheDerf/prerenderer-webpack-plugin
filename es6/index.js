@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const mkdirp = require('mkdirp-promise')
 const Prerenderer = require('prerenderer')
-const ChromeRenderer = Prerenderer.ChromeRenderer
 
 function PrerendererWebpackPlugin (...args) {
   // Normal args object.
@@ -88,6 +87,7 @@ PrerendererWebpackPlugin.prototype.apply = function (compiler) {
   })
 }
 
-PrerendererWebpackPlugin.ChromeRenderer = ChromeRenderer
+PrerendererWebpackPlugin.ChromeRenderer = Prerenderer.ChromeRenderer
+PrerendererWebpackPlugin.JSDOMRenderer = Prerenderer.JSDOMRenderer
 
 module.exports = PrerendererWebpackPlugin
