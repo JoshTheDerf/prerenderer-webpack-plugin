@@ -1,7 +1,7 @@
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const PrerendererWebpackPlugin = require('../../index.js')
-const Renderer = PrerendererWebpackPlugin.JSDOMRenderer
+const Renderer = PrerendererWebpackPlugin.BrowserRenderer
 
 module.exports = {
   entry: [ './src/main.js' ],
@@ -22,6 +22,14 @@ module.exports = {
       renderer: new Renderer({
         inject: {
           foo: 'bar'
+        },
+
+        opn: {
+          // Default: System default browser.
+          // Recommended (macOS and Linux)
+          // app: ['google-chrome', '--headless']
+          // Firefox (Doesn't automatically close without setting dom.allow_scripts_to_close_windows to true in about:config)
+          // app: ['firefox', '-private']
         }
       })
     })

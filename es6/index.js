@@ -87,6 +87,7 @@ PrerendererWebpackPlugin.prototype.apply = function (compiler) {
   })
 }
 
+PrerendererWebpackPlugin.BrowserRenderer = Prerenderer.BrowserRenderer
 PrerendererWebpackPlugin.ChromeRenderer = Prerenderer.ChromeRenderer
 PrerendererWebpackPlugin.JSDOMRenderer = Prerenderer.JSDOMRenderer
 

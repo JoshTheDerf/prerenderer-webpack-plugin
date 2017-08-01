@@ -4,7 +4,6 @@ var fs = require('fs');
 var path = require('path');
 var mkdirp = require('mkdirp-promise');
 var Prerenderer = require('prerenderer');
-var ChromeRenderer = Prerenderer.ChromeRenderer;
 
 function PrerendererWebpackPlugin() {
   var _this = this;
@@ -96,6 +95,8 @@ PrerendererWebpackPlugin.prototype.apply = function (compiler) {
   });
 };
 
-PrerendererWebpackPlugin.ChromeRenderer = ChromeRenderer;
+PrerendererWebpackPlugin.BrowserRenderer = Prerenderer.BrowserRenderer;
+PrerendererWebpackPlugin.ChromeRenderer = Prerenderer.ChromeRenderer;
+PrerendererWebpackPlugin.JSDOMRenderer = Prerenderer.JSDOMRenderer;
 
 module.exports = PrerendererWebpackPlugin;
