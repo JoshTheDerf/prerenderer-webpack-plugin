@@ -5,7 +5,8 @@
     "build": "webpack --progress --hide-modules --config webpack.config.js"
   },
   "dependencies": {
-    "prerender-spa-plugin": "git://github.com/chrisvfritz/prerender-spa-plugin.git"
+    "@prerenderer/renderer-puppeteer": "^0.1.0",
+    "prerenderer-webpack-plugin": "^0.5.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^1.1.1",
