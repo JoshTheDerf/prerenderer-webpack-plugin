@@ -38,16 +38,7 @@ PrerendererWebpackPlugin.prototype.apply = function (compiler) {
       return PrerendererInstance.renderRoutes(this._options.routes || [])
     })
     .then(renderedRoutes => {
-      const {route, html} = renderedRoutes
-
-      if (this._options.postProcessHtml) {
-        renderedRoutes.html = this._options.postProcessHtml({
-          html,
-          route
-        })
-      }
-
-      return renderedRoutes
+      return this._options.postProcessHtml ? this._options.postProcessHtml(renderedRoutes) : renderedRoutes
     })
     .then(processedRoutes => {
       const promises = Promise.all(processedRoutes.map(processedRoute => {
