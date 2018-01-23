@@ -45,18 +45,7 @@ PrerendererWebpackPlugin.prototype.apply = function (compiler) {
     PrerendererInstance.initialize().then(function () {
       return PrerendererInstance.renderRoutes(_this2._options.routes || []);
     }).then(function (renderedRoutes) {
-      var route = renderedRoutes.route,
-          html = renderedRoutes.html;
-
-
-      if (_this2._options.postProcessHtml) {
-        renderedRoutes.html = _this2._options.postProcessHtml({
-          html,
-          route
-        });
-      }
-
-      return renderedRoutes;
+      return _this2._options.postProcessHtml ? _this2._options.postProcessHtml(renderedRoutes) : renderedRoutes;
     }).then(function (processedRoutes) {
       var promises = Promise.all(processedRoutes.map(function (processedRoute) {
         var outputDir = path.join(_this2._options.outputDir || _this2._options.staticDir, processedRoute.route);
@@ -94,9 +83,5 @@ PrerendererWebpackPlugin.prototype.apply = function (compiler) {
     });
   });
 };
-
-PrerendererWebpackPlugin.BrowserRenderer = Prerenderer.BrowserRenderer;
-PrerendererWebpackPlugin.ChromeRenderer = Prerenderer.ChromeRenderer;
-PrerendererWebpackPlugin.JSDOMRenderer = Prerenderer.JSDOMRenderer;
 
 module.exports = PrerendererWebpackPlugin;
