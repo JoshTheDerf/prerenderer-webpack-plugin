@@ -27,7 +27,7 @@
 
 ## About prerenderer-webpack-plugin
 
-<p>***Note: This package will be deprecated in favor of [prerender-spa-plugin](https://github.com/chrisvfritz/prerender-spa-plugin) v3. This package will stay up-to-date with `prerenderer` until `prerender-spa-plugin` v3 is released.***</p>
+**Note: This package will be deprecated in favor of [prerender-spa-plugin](https://github.com/chrisvfritz/prerender-spa-plugin) v3. This package will stay up-to-date with `prerenderer` until `prerender-spa-plugin` v3 is released.**
 
 The goal of this plugin is to provide a simple prerendering solution that is easily extensible and usable for any site or single-page-app built with webpack.
 
