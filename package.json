@@ -1,6 +1,6 @@
 {
   "name": "prerenderer-webpack-plugin",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Fast, flexible, framework-agnostic prerendering for sites and SPAs built with webpack.",
   "license": "MIT",
   "main": "index.js",
