@@ -3,7 +3,7 @@
 var fs = require('fs');
 var path = require('path');
 var mkdirp = require('mkdirp-promise');
-var Prerenderer = require('prerenderer');
+var Prerenderer = require('@prerenderer/prerenderer');
 
 function PrerendererWebpackPlugin() {
   var _this = this;

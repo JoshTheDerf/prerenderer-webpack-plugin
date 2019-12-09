@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const mkdirp = require('mkdirp-promise')
-const Prerenderer = require('prerenderer')
+const Prerenderer = require('@prerenderer/prerenderer')
 
 function PrerendererWebpackPlugin (...args) {
   // Normal args object.
